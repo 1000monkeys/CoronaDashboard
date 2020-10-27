@@ -20,6 +20,6 @@ with open('covid-19-dataset-1.csv') as f:
         with open('data-edited.csv', mode='w', newline='') as data_edited:
             state_writer = csv.writer(data_edited, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-            state_writer.writerow("StateCode,Confirmed")
+            state_writer.writerow(["StateCode", "Confirmed"])
             for state in states:
                 state_writer.writerow([state, states[state]])

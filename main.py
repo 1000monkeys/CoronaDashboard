@@ -19,7 +19,8 @@ def index():
     pd.set_option("display.max_rows", None, "display.max_columns", None)
     print(data_frame)
 
-    bins = [0, 10, 50, 100, 250, 500, 800, 1000]
+    #  bins = [0, 10, 50, 100, 250, 500, 800, 1000]
+    bins = data_frame['Confirmed'].quantile([0, 0.05, 0.1, 0.4, 0.8, 1])
     folium.Choropleth(
         geo_data="us-states.json",
         name='choropleth',
