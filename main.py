@@ -1,9 +1,6 @@
-import csv
-
 import branca
 import folium
 import pandas as pd
-from abbreviations import us_state_abbrev
 from flask import Flask
 
 app = Flask(__name__)
@@ -19,6 +16,7 @@ def index():
     pd.set_option("display.max_rows", None, "display.max_columns", None)
     print(data_frame)
 
+    # Create new legend because the original one is wrong
     colormap = branca.colormap.linear.YlOrRd_09.scale(0, 105000).to_step(6)
     colormap.caption = 'Infected people'
     folium_map.add_child(colormap)
@@ -33,9 +31,11 @@ def index():
         columns=['StateCode', 'Confirmed'],
         key_on='feature.id',
         fill_opacity=0.7,
-        line_opacity=0.2,
+        line_opacity=1,
         fill_color='YlOrRd',
     )
+
+    # Delete original legend. It's scale is wrong.(ie colors are smashed together)
     for key in choropleth._children:
         if key.startswith('color_map'):
             del(choropleth._children[key])
